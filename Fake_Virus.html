@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Error!</title>
+    <style>
+        body {
+            background-color: black;
+            color: lime;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+        }
+        #loading-screen {
+            font-size: 18px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            white-space: pre-wrap;
+            overflow: hidden;
+        }
+        .loading-text {
+            font-size: 24px;
+            color: red;
+            margin-top: 10px;
+            animation: blink 1s infinite alternate;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+        #main-content {
+            display: none;
+        }
+        h1 {
+            font-size: 40px;
+            animation: flicker 0.1s infinite alternate;
+            color: red;
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            100% { opacity: 0.1; }
+        }
+        .warning {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px;
+            color: red;
+        }
+        .scan {
+            font-size: 18px;
+            color: yellow;
+            margin-top: 30px;
+        }
+        .progress-bar {
+            width: 80%;
+            height: 20px;
+            background-color: gray;
+            margin: auto;
+            position: relative;
+        }
+        .progress {
+            width: 0%;
+            height: 100%;
+            background-color: red;
+            position: absolute;
+        }
+        .fake-btn {
+            background-color: red;
+            color: white;
+            padding: 15px;
+            display: inline-block;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 20px;
+            border-radius: 5px;
+        }
+        .fake-btn:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hacker-Style Loading Effect -->
+    <div id="loading-screen">
+        <pre id="hacker-text"></pre>
+        <div class="loading-text">Loading...</div>
+    </div>
+
+    <!-- Fake Virus Warning Page -->
+    <div id="main-content">
+        <h1>⚠ WARNING! VIRUS DETECTED! ⚠</h1>
+        <p class="warning">Your phone is infected with a dangerous virus!</p>
+        <p class="scan">Hi....I'm Mr.TS (Hacker).I hacked your Mobile . If you need to Remove this Click 
+		the button below.Do not take any dicision like inforiming police or etc.If you do , Your all Information will be
+		deleted . You are very foolish 😂😂😂😂.You Have 30 minutes </p>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <p class="scan" id="status"></p>
+
+        <div class="fake-btn" onclick="fixVirus()">REMOVE VIRUS</div>
+
+        <!-- Hidden audio element -->
+        <audio id="virusAudio">
+            <source src="https://www.myinstants.com/media/sounds/windows-error-sound.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+	
+	<p class="scan" id="countdown-text">Shutting down in <span id="countdown">10</span> seconds...</p>
+
+<script>
+    function startCountdown() {
+        let countdown = 1800; // Start from 30 minutes
+        let countdownElement = document.getElementById("countdown");
+
+        let countdownInterval = setInterval(() => {
+            countdown--;
+            countdownElement.innerText = countdown;
+
+            if (countdown <= 0) {
+                clearInterval(countdownInterval);
+                alert("Your phone is shutting down now!"); // Final scary message
+                document.body.innerHTML = "<h1 style='color:red;'>SYSTEM FAILURE! DEVICE LOCKED!</h1>";
+            }
+        }, 1000);
+    }
+
+    // Start the countdown when the virus warning appears
+    setTimeout(startCountdown, 3000);
+</script>
+
+
+    <script>
+        // Generate random hacker-like text
+        const hackerText = document.getElementById("hacker-text");
+        let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[{]}|;:',<.>/?~";
+        let hackerLines = [];
+
+        function generateHackerText() {
+            let line = "";
+            for (let i = 0; i < 50; i++) {
+                line += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            hackerLines.push(line);
+            if (hackerLines.length > 15) hackerLines.shift(); // Keep the text scrolling
+            hackerText.innerText = hackerLines.join("\n");
+        }
+
+        // Repeat hacker effect every 100ms
+        let hackerEffect = setInterval(generateHackerText, 100);
+
+        // After 5 seconds, switch to the virus warning page
+        setTimeout(() => {
+            clearInterval(hackerEffect);
+            document.getElementById("loading-screen").style.display = "none";
+            document.getElementById("main-content").style.display = "block";
+
+            // Start virus scan effect
+            setTimeout(fakeScan, 1000);
+            setTimeout(() => { document.getElementById("virusAudio").play(); }, 3000);
+        }, 5000);
+
+        // Fake progress bar animation
+        let width = 0;
+        let progressBar = document.getElementById("progress");
+        let statusText = document.getElementById("status");
+
+        function fakeScan() {
+            let interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    statusText.innerText = "SEVER THREAT DETECTED!";
+                    setTimeout(() => { alert("Your phone will shut down in 10 seconds!"); }, 2000);
+                } else {
+                    width += 10;
+                    progressBar.style.width = width + "%";
+                }
+            }, 500);
+        }
+
+        // Fake virus removal button
+        function fixVirus() {
+            alert("Virus removal failed! Please reset your phone immediately.");
+            document.body.innerHTML = "<h1 style='color:red;'>SYSTEM ERROR 404! PHONE COMPROMISED!</h1>";
+            document.getElementById("virusAudio").play();
+        }
+		
+
+    </script>
+
+</body>
+</html>
